@@ -1,0 +1,10 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tambahan agar background tidak putih polos jika ada gap */
+body {
+    @apply bg-neutral-100;
+    margin: 0;
+    padding: 0;
+}
