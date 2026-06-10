@@ -1,10 +1,12 @@
 <script setup>
 import { ref, onMounted, computed } from 'vue';
+import { useRouter } from 'vue-router';
 import api from '../lib/axios';
 import Sidebar from '../components/Sidebar.vue'; // Import Sidebar
 
 // State Data
 const user = computed(() => JSON.parse(localStorage.getItem('user') || '{}'));
+const router = useRouter();
 const leaveStats = ref({ remaining: 0, used: 0, pendingRecommendation: 0, pendingApproval: 0 });
 const leaveHistory = ref([]);
 const nationalHolidays = ref([]);
@@ -86,6 +88,10 @@ const gridColsClass = computed(() => {
     if (role === 'Manager') return 'lg:grid-cols-3';
     return 'lg:grid-cols-2';
 });
+
+const goToPersetujuan = () => {
+    router.push('/persetujuan');
+};
 </script>
 
 <template>
@@ -123,7 +129,7 @@ const gridColsClass = computed(() => {
                             <svg class="w-6 h-6 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"></polyline></svg>
                         </div>
                     </div>
-                    <div v-if="['Manager', 'HRD'].includes(user.role)" class="bg-white rounded-2xl shadow-sm border border-purple-500 border-l-8 p-5 relative h-40 flex flex-col justify-between">
+                    <div v-if="['Manager', 'HRD'].includes(user.role)" @click="goToPersetujuan" class="bg-white rounded-2xl shadow-sm border border-purple-500 border-l-8 p-5 relative h-40 flex flex-col justify-between cursor-pointer transition-transform hover:-translate-y-1 hover:shadow-md">
                         <div>
                             <h3 class="text-black text-base font-semibold leading-tight">Menunggu<br>Rekomendasi</h3>
                             <div class="mt-2 flex flex-col">
@@ -135,7 +141,7 @@ const gridColsClass = computed(() => {
                             <svg class="w-6 h-6 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path d="M12 3H7a4 4 0 0 0-4 4v10a4 4 0 0 0 4 4h10a4 4 0 0 0 4-4v-5" /><path d="M13.5 13.5L10 17v-3.5L18.5 5a2.121 2.121 0 1 1 3 3L13.5 13.5z" /></svg>
                         </div>
                     </div>
-                    <div v-if="user.role === 'HRD'" class="bg-white rounded-2xl shadow-sm border border-yellow-400 border-l-8 p-5 relative h-40 flex flex-col justify-between">
+                    <div v-if="user.role === 'HRD'" @click="goToPersetujuan" class="bg-white rounded-2xl shadow-sm border border-yellow-400 border-l-8 p-5 relative h-40 flex flex-col justify-between cursor-pointer transition-transform hover:-translate-y-1 hover:shadow-md">
                         <div>
                             <h3 class="text-black text-base font-semibold leading-tight">Menunggu<br>Persetujuan</h3>
                             <div class="mt-2 flex flex-col">
