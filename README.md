@@ -18,7 +18,7 @@ Sistem ini mengimplementasikan *Role-Based Access Control* (RBAC). Untuk merasak
 | No | Role / Peran | NIK (Username) | Password | Akses Fitur Utama |
 |---|---|---|---|---|
 | 1 | **Karyawan** | `STF001` | `password` | Mengajukan cuti baru, memantau sisa kuota cuti tahunan, membatalkan pengajuan (*cancel request*), melihat riwayat personal. |
-| 2 | **Atasan / Manajer** | `MGR001` | `password` | Validasi pengajuan tim bawahannya, memberikan persetujuan (*approve*) atau penolakan (*reject*), melihat kalender cuti divisi. |
+| 2 | **Atasan / Manajer** | `MGR001` | `password` | Validasi pengajuan tim bawahannya, memberikan persetujuan (*approve*) atau penolakan (*reject*). |
 | 3 | **HRD / Admin** | `HRD001` | `password` | Mengelola data induk karyawan, alokasi/pembaruan kuota cuti, serta memantau dan mencetak dokumen laporan rekapitulasi cuti global. |
 
 ---
