@@ -51,6 +51,12 @@ const deleteUser = async (u) => {
         fetchData();
     }
 };
+
+const formatDate = (dateString) => {
+    if (!dateString) return '-';
+    return dateString.split(/T| /)[0]; 
+};
+
 </script>
 
 <template>
@@ -84,7 +90,7 @@ const deleteUser = async (u) => {
                             <tr v-for="u in karyawan.data" :key="u.nik" class="hover:bg-gray-50">
                                 <td class="px-6 py-4 text-sm text-gray-600">{{ u.nik }}</td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ u.nama }}</td>
-                                <td class="px-6 py-4 text-sm text-gray-600">{{ u.tglMasuk }}</td>
+                                <td class="px-6 py-4 text-sm text-gray-600">{{ formatDate(u.tglMasuk) }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-600">{{ u.departemen }}</td>
                                 <td class="px-6 py-4 text-sm"><span class="px-2 py-1 text-xs font-bold rounded-full" :class="{'bg-purple-100 text-purple-700': u.role==='HRD', 'bg-blue-100 text-blue-700': u.role==='Manager', 'bg-gray-100 text-gray-700': u.role==='Staff'}">{{ u.role }}</span></td>
                                 <td class="px-6 py-4 text-sm text-gray-600">{{ u.manager ? u.manager.nama : '-' }}</td>
