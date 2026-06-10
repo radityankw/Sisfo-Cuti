@@ -6,6 +6,7 @@ import DashboardView from '../views/DashboardView.vue'
 import Pengajuan from '../views/Pengajuan.vue'
 import Persetujuan from '../views/Persetujuan.vue'
 import Laporan from '../views/Laporan.vue'
+import GantiPassword from '../views/GantiPassword.vue'
 import DataKaryawanIndex from '../views/DataKaryawan/Index.vue'
 import DataKaryawanStruktur from '../views/DataKaryawan/Struktur.vue'
 
@@ -36,6 +37,11 @@ const router = createRouter({
       path: '/laporan', 
       name: 'laporan',
       component: Laporan 
+    },
+    {
+      path: '/ganti-password',
+      name: 'ganti-password',
+      component: GantiPassword
     },
     { 
       path: '/data-karyawan', 
