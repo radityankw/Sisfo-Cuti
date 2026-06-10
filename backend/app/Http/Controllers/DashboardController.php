@@ -97,7 +97,7 @@ class DashboardController extends Controller
                     'status' => $req->status,
                     'sisa_cuti_saat_ini' => $sisaCuti,
                     'approver' => $req->user->manager->nama ?? '-',
-                    'catatan_manager' => $req->catatanManajer 
+                    'catatan_manager' => $req->catatanManager 
                 ];
             });
         

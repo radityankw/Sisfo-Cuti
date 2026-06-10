@@ -80,7 +80,7 @@ class PersetujuanController extends Controller
 
         if ($action === 'reject') {
             $cutiRequest->status = 'REJECTED';
-            $cutiRequest->catatanManajer = $catatan;
+            $cutiRequest->catatanManager = $catatan;
             $cutiRequest->tglApproval = now(); 
         } 
         elseif ($action === 'recommend') {
