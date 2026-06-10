@@ -33,6 +33,7 @@ Route::middleware('auth:sanctum')->group(function () {
     // 1. AUTHENTICATION
     Route::get('/me', [AuthController::class, 'me']); // Cek user yang sedang login
     Route::post('/logout', [AuthController::class, 'logout']);
+    Route::patch('/password', [AuthController::class, 'updatePassword']);
 
     // 2. DASHBOARD
     Route::get('/dashboard', [DashboardController::class, 'index']);

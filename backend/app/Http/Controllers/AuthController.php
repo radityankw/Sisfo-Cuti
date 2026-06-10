@@ -4,8 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Illuminate\Validation\ValidationException;
 
 class AuthController extends Controller
 {
@@ -50,5 +50,30 @@ class AuthController extends Controller
     public function me(Request $request)
     {
         return response()->json($request->user());
+    }
+
+    public function updatePassword(Request $request)
+    {
+        $validated = $request->validate([
+            'current_password' => 'required|string',
+            'password' => 'required|string|min:8|confirmed',
+        ]);
+
+        $user = $request->user();
+
+        if (!Hash::check($validated['current_password'], $user->password)) {
+            return response()->json([
+                'message' => 'Password lama tidak sesuai.',
+            ], 422);
+        }
+
+        $user->password = $validated['password'];
+        $user->save();
+
+        $request->user()->currentAccessToken()->delete();
+
+        return response()->json([
+            'message' => 'Password berhasil diubah. Silakan login kembali.',
+        ]);
     }
 }
