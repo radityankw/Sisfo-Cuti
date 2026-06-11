@@ -1,13 +1,31 @@
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, onBeforeUnmount } from 'vue';
 import { RouterLink } from 'vue-router';
 import api from '../../lib/axios';
 import OrgNode from './OrgNode.vue';
 
 const roots = ref([]);
 const isLoading = ref(true);
+const isSidebarOpen = ref(false);
+
+const closeSidebar = () => {
+    isSidebarOpen.value = false;
+};
+
+const toggleSidebar = () => {
+    isSidebarOpen.value = !isSidebarOpen.value;
+};
+
+const syncSidebarState = () => {
+    if (window.innerWidth >= 1025) {
+        isSidebarOpen.value = false;
+    }
+};
 
 onMounted(async () => {
+    syncSidebarState();
+    window.addEventListener('resize', syncSidebarState);
+
     try {
         const { data } = await api.get('/data-karyawan/struktur'); // Pastikan endpoint sesuai API routes
         roots.value = data.roots;
@@ -17,12 +35,23 @@ onMounted(async () => {
         isLoading.value = false;
     }
 });
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', syncSidebarState);
+});
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50 flex overflow-hidden font-sans">
+    <div class="min-h-screen bg-gray-50 flex overflow-x-hidden lg:overflow-hidden font-sans">
+        <button type="button" class="mobile-toggle" @click="toggleSidebar" aria-label="Buka menu navigasi">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
+
+        <div v-if="isSidebarOpen" class="sidebar-backdrop" @click="closeSidebar"></div>
         
-        <aside class="w-64 bg-white flex flex-col items-center py-8 px-6 fixed h-full border-r border-gray-200 z-50 shadow-sm">
+        <aside class="app-sidebar w-64 bg-white flex flex-col items-center py-8 px-6 fixed h-full border-r border-gray-200 z-50 shadow-sm" :class="{ open: isSidebarOpen }">
             <div class="mb-10 flex flex-col items-center">
                 <div class="w-24 h-24 mb-3 flex items-center justify-center">
                     <img src="/images/logo.png" alt="Logo MK" class="w-full h-full object-contain" />
@@ -30,7 +59,7 @@ onMounted(async () => {
                 <p class="text-blue-900 text-xl font-bold tracking-wider">Menara Kudus</p>
             </div>
             
-            <div class="w-full mt-auto mb-8">
+            <div class="w-full mt-auto mb-8" @click="closeSidebar">
                 <RouterLink to="/data-karyawan" class="flex items-center justify-center gap-2 w-full py-3 bg-white hover:bg-gray-50 text-gray-700 font-bold rounded-xl transition-all border border-gray-200 hover:border-gray-300 shadow-sm hover:shadow">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 19l-7-7m0 0l7-7m-7 7h18"></path></svg>
                     Kembali ke Data
@@ -38,7 +67,7 @@ onMounted(async () => {
             </div>
         </aside>
 
-        <main class="flex-1 ml-64 overflow-hidden relative bg-gray-50">
+        <main class="flex-1 ml-0 lg:ml-64 overflow-hidden relative bg-gray-50">
             <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; opacity: 0.5;"></div>
 
             <div class="absolute top-0 left-0 right-0 z-40 p-8 flex justify-between items-start pointer-events-none">
@@ -73,3 +102,77 @@ onMounted(async () => {
         </main>
     </div>
 </template>
+
+<style scoped>
+.mobile-toggle {
+    display: none;
+}
+
+.sidebar-backdrop {
+    display: none;
+}
+
+.app-sidebar {
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .mobile-toggle {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 60;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(226, 232, 240, 1);
+    }
+
+    .mobile-toggle span {
+        display: block;
+        width: 1.25rem;
+        height: 2px;
+        margin: 0 auto;
+        border-radius: 9999px;
+        background: #1e3a8a;
+    }
+
+    .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(2px);
+    }
+
+    .app-sidebar {
+        top: 0;
+        left: 0;
+        z-index: 50;
+        transform: translateX(-100%);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+    }
+
+    .app-sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 1025px) {
+    .mobile-toggle,
+    .sidebar-backdrop {
+        display: none !important;
+    }
+
+    .app-sidebar {
+        transform: translateX(0) !important;
+    }
+}
+</style>

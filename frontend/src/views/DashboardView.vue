@@ -95,8 +95,8 @@ const goToPersetujuan = () => {
 </script>
 
 <template>
-    <div class="h-screen bg-neutral-50 flex overflow-hidden font-sans">
-        <Sidebar /> <main class="flex-1 ml-64 p-8 overflow-y-auto">
+    <div class="min-h-screen lg:h-screen bg-neutral-50 flex overflow-x-hidden lg:overflow-hidden font-sans">
+        <Sidebar /> <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 lg:p-8 overflow-y-auto">
             <h1 class="text-2xl font-bold mb-8 text-black">
                 Selamat Datang, {{ user.role === 'HRD' ? 'HRD' : user.nama }}
             </h1>

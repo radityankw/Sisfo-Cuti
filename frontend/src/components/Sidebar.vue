@@ -1,11 +1,35 @@
 <script setup>
 import { RouterLink, useRouter } from 'vue-router';
-import { computed } from 'vue';
+import { computed, onBeforeUnmount, onMounted, ref } from 'vue';
 import api from '../lib/axios';
 
 const router = useRouter();
 // Ambil user dari localStorage
 const user = computed(() => JSON.parse(localStorage.getItem('user') || '{}'));
+const isOpen = ref(false);
+
+const closeSidebar = () => {
+    isOpen.value = false;
+};
+
+const toggleSidebar = () => {
+    isOpen.value = !isOpen.value;
+};
+
+const syncSidebarState = () => {
+    if (window.innerWidth >= 1025) {
+        isOpen.value = false;
+    }
+};
+
+onMounted(() => {
+    syncSidebarState();
+    window.addEventListener('resize', syncSidebarState);
+});
+
+onBeforeUnmount(() => {
+    window.removeEventListener('resize', syncSidebarState);
+});
 
 const handleLogout = async () => {
     try {
@@ -21,7 +45,15 @@ const handleLogout = async () => {
 </script>
 
 <template>
-    <aside class="w-64 bg-white flex flex-col items-center py-8 px-6 fixed h-full border-r border-gray-100 z-10">
+    <button type="button" class="mobile-toggle" @click="toggleSidebar" aria-label="Buka menu navigasi">
+        <span></span>
+        <span></span>
+        <span></span>
+    </button>
+
+    <div v-if="isOpen" class="sidebar-backdrop" @click="closeSidebar"></div>
+
+    <aside class="app-sidebar w-64 bg-white flex flex-col items-center py-8 px-6 fixed h-full border-r border-gray-100 z-20" :class="{ open: isOpen }">
         <div class="mb-10 flex flex-col items-center">
             <div class="w-24 h-24 mb-3 flex items-center justify-center">
                 <img src="/images/logo.png" alt="Logo MK" class="w-full h-full object-contain" />
@@ -29,7 +61,7 @@ const handleLogout = async () => {
             <p class="text-blue-900 text-xl font-bold tracking-wider">Menara Kudus</p>
         </div>
 
-        <nav class="w-full space-y-3">
+        <nav class="w-full space-y-3" @click="closeSidebar">
             <RouterLink to="/dashboard" class="w-full flex items-center pl-10 gap-4 px-2 py-2 text-gray-500 hover:text-blue-900 font-semibold transition-colors" active-class="text-gray-800 font-bold">
                 <svg class="w-6 h-6" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path><polyline points="9 22 9 12 15 12 15 22"></polyline></svg>
                 <span class="text-base">Dashboard</span>
@@ -69,3 +101,77 @@ const handleLogout = async () => {
         </div>
     </aside>
 </template>
+
+<style scoped>
+.mobile-toggle {
+    display: none;
+}
+
+.sidebar-backdrop {
+    display: none;
+}
+
+.app-sidebar {
+    transition: transform 0.3s ease;
+}
+
+@media (max-width: 1024px) {
+    .mobile-toggle {
+        position: fixed;
+        top: 1rem;
+        left: 1rem;
+        z-index: 60;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 4px;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 0.75rem;
+        background: rgba(255, 255, 255, 0.96);
+        box-shadow: 0 8px 20px rgba(15, 23, 42, 0.12);
+        border: 1px solid rgba(226, 232, 240, 1);
+    }
+
+    .mobile-toggle span {
+        display: block;
+        width: 1.25rem;
+        height: 2px;
+        margin: 0 auto;
+        border-radius: 9999px;
+        background: #1e3a8a;
+    }
+
+    .sidebar-backdrop {
+        display: block;
+        position: fixed;
+        inset: 0;
+        z-index: 40;
+        background: rgba(15, 23, 42, 0.45);
+        backdrop-filter: blur(2px);
+    }
+
+    .app-sidebar {
+        top: 0;
+        left: 0;
+        z-index: 50;
+        transform: translateX(-100%);
+        box-shadow: 0 20px 40px rgba(15, 23, 42, 0.2);
+    }
+
+    .app-sidebar.open {
+        transform: translateX(0);
+    }
+}
+
+@media (min-width: 1025px) {
+    .mobile-toggle,
+    .sidebar-backdrop {
+        display: none !important;
+    }
+
+    .app-sidebar {
+        transform: translateX(0) !important;
+    }
+}
+</style>
