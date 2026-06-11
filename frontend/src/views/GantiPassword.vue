@@ -57,7 +57,7 @@ const submit = async () => {
         <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 lg:p-8 overflow-y-auto">
             <div class="max-w-3xl">
                 <h1 class="text-2xl font-bold text-black mb-2">Ganti Password</h1>
-                <p class="text-gray-500 mb-8">Ubah password akun {{ user.nama || 'Anda' }} untuk menjaga keamanan login.</p>
+                <p class="text-gray-500 mb-8">Ubah password akun Anda untuk menjaga keamanan login.</p>
 
                 <div class="bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
                     <form @submit.prevent="submit" class="space-y-5">
