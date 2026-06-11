@@ -92,7 +92,7 @@ const exportPDF = async () => {
 
         <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 lg:p-8 overflow-y-auto">
             <div class="mb-6">
-                <h1 class="text-2xl font-bold text-black mb-4">Laporan Cuti Karyawan</h1>
+                <h1 class="page-title text-2xl font-bold text-black mb-4">Laporan Cuti Karyawan</h1>
                 
                 <div class="bg-white p-4 rounded-xl shadow-sm border border-gray-100 flex flex-wrap items-center gap-4">
                     

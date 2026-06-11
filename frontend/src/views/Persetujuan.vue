@@ -87,7 +87,7 @@ const submitForm = async () => {
         <Sidebar />
 
         <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 lg:p-8 overflow-y-auto">
-            <h1 class="text-2xl font-bold mb-8 text-black">Halaman Persetujuan</h1>
+            <h1 class="page-title text-2xl font-bold mb-8 text-black">Halaman Persetujuan</h1>
 
             <div v-if="isLoading" class="text-center py-10">Loading Data...</div>
 
@@ -98,7 +98,7 @@ const submitForm = async () => {
                         Permintaan Rekomendasi
                     </h2>
                     
-                    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+                    <div class="table-responsive bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
                         <table class="w-full">
                             <thead>
                                 <tr class="text-left text-gray-500 border-b border-gray-100">
@@ -137,7 +137,7 @@ const submitForm = async () => {
                         Permintaan Persetujuan Cuti 
                     </h2>
 
-                    <div class="bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
+                    <div class="table-responsive bg-white rounded-3xl shadow-sm border border-gray-100 p-6">
                         <table class="w-full">
                             <thead>
                                 <tr class="text-left text-gray-500 border-b border-gray-100">

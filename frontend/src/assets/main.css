@@ -19,3 +19,53 @@ body {
         margin-left: 0 !important;
     }
 }
+
+@media (max-width: 768px) {
+    .page-title {
+        padding-left: 4rem;
+        padding-right: 1rem;
+        line-height: 1.15;
+        word-break: break-word;
+    }
+
+    .table-responsive {
+        width: 100%;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .table-responsive table {
+        min-width: 720px;
+        width: 100%;
+    }
+
+    .legend-wrap {
+        flex-wrap: wrap;
+        gap: 0.5rem;
+    }
+
+    .org-chart-wrapper {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    .org-card-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .org-header-row {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+
+    .org-header-title {
+        padding-left: 4rem;
+        padding-right: 1rem;
+    }
+
+    .org-main-shell {
+        overflow: visible;
+    }
+}

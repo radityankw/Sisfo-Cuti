@@ -42,7 +42,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-    <div class="min-h-screen bg-gray-50 flex overflow-x-hidden lg:overflow-hidden font-sans">
+    <div class="min-h-screen bg-gray-50 flex overflow-x-hidden lg:overflow-hidden font-sans org-main-shell">
         <button type="button" class="mobile-toggle" @click="toggleSidebar" aria-label="Buka menu navigasi">
             <span></span>
             <span></span>
@@ -67,17 +67,17 @@ onBeforeUnmount(() => {
             </div>
         </aside>
 
-        <main class="flex-1 ml-0 lg:ml-64 overflow-hidden relative bg-gray-50">
+        <main class="flex-1 ml-0 lg:ml-64 overflow-visible lg:overflow-hidden relative bg-gray-50">
             <div class="absolute inset-0 pointer-events-none" style="background-image: radial-gradient(#cbd5e1 1px, transparent 1px); background-size: 24px 24px; opacity: 0.5;"></div>
 
-            <div class="absolute top-0 left-0 right-0 z-40 p-8 flex justify-between items-start pointer-events-none">
-                <div class="pointer-events-auto">
-                    <h1 class="text-3xl font-bold text-gray-800">Struktur Organisasi</h1>
+            <div class="absolute top-0 left-0 right-0 z-40 p-8 flex justify-between items-start pointer-events-none org-header-row">
+                <div class="pointer-events-auto org-header-title">
+                    <h1 class="page-title text-3xl font-bold text-gray-800">Struktur Organisasi</h1>
                     <p class="text-gray-500 text-xl mt-1">PT. Menara Kudus Indonesia</p>
                 </div>
                 
-                <div class="flex flex-col gap-2 pointer-events-auto">
-                    <div class="bg-white/80 backdrop-blur px-4 py-2 rounded-lg border border-gray-200 shadow-sm text-xs font-medium flex gap-4">
+                <div class="flex flex-col gap-2 pointer-events-auto legend-wrap">
+                    <div class="bg-white/80 backdrop-blur px-4 py-2 rounded-lg border border-gray-200 shadow-sm text-xs font-medium flex gap-4 legend-wrap">
                         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-purple-600"></span> HRD</div>
                         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-blue-600"></span> Manager</div>
                         <div class="flex items-center gap-2"><span class="w-2 h-2 rounded-full bg-gray-500"></span> Staff</div>
@@ -85,10 +85,10 @@ onBeforeUnmount(() => {
                 </div>
             </div>
 
-            <div class="h-full w-full overflow-auto pt-32 pb-20 px-8 cursor-grab active:cursor-grabbing">
+            <div class="org-chart-wrapper h-full w-full overflow-auto pt-32 pb-20 px-4 md:px-8 cursor-grab active:cursor-grabbing">
                 <div v-if="isLoading" class="text-center pt-20">Loading Tree...</div>
 
-                <div v-else class="min-w-max flex justify-center gap-16 mx-auto">
+                <div v-else class="org-card-row min-w-max flex justify-center gap-16 mx-auto">
                     <div v-for="rootUser in roots" :key="rootUser.nik">
                         <OrgNode :user="rootUser" />
                     </div>

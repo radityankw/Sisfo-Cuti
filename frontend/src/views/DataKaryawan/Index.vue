@@ -64,7 +64,7 @@ const formatDate = (dateString) => {
         <Sidebar />
         <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 lg:p-8 overflow-y-auto">
             <div class="flex justify-between items-center mb-6">
-                <h1 class="text-2xl font-bold text-black">Manajemen Data Karyawan</h1>
+                <h1 class="page-title text-2xl font-bold text-black">Manajemen Data Karyawan</h1>
                 <div class="flex gap-3">
                     <RouterLink to="/data-karyawan/struktur" class="bg-white border border-gray-300 hover:bg-gray-50 text-gray-700 px-4 py-2 rounded-lg font-bold text-sm transition-colors flex items-center gap-2 shadow-sm">
                         Struktur Organisasi

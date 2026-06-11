@@ -130,7 +130,7 @@ const submit = async () => {
         <Sidebar />
         <main class="flex-1 ml-0 lg:ml-64 p-4 md:p-6 lg:p-8 overflow-y-auto flex justify-center items-start pt-6 lg:pt-12">
             <div class="w-full max-w-3xl bg-white rounded-2xl shadow-sm border border-gray-100 p-8">
-                <h1 class="text-2xl font-bold text-red-600 mb-6">Form Pengajuan Cuti</h1>
+                <h1 class="page-title text-2xl font-bold text-red-600 mb-6">Form Pengajuan Cuti</h1>
 
                 <div v-if="isLoadingData" class="text-center">Loading Data Form...</div>
                 
