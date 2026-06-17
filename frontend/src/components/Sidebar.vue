@@ -111,7 +111,7 @@ const handleLogout = async () => {
     border-radius: 0.5rem;
     color: #6b7280;
     font-weight: 600;
-    font-size: 0.95rem;
+    font-size: 1.05rem;
     transition: color 0.2s;
     text-decoration: none;
 }
