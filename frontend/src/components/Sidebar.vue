@@ -103,7 +103,7 @@ const handleLogout = async () => {
 
 <style scoped>
 .nav-link {
-    width: 13rem;
+    width: 11rem;
     display: flex;
     align-items: center;
     gap: 0.75rem;
