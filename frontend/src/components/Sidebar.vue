@@ -53,7 +53,7 @@ const handleLogout = async () => {
     <div v-if="isOpen" class="sidebar-backdrop" @click="closeSidebar"></div>
 
     <aside class="app-sidebar w-64 bg-white flex flex-col items-center py-8 px-4 fixed h-full border-r border-gray-100 z-20" :class="{ open: isOpen }">
-        <div class="mb-10 flex flex-col items-center">
+        <div class="mb-10 flex flex-col items-center w-full">
             <div class="w-24 h-24 mb-3 flex items-center justify-center">
                 <img src="/images/logo.png" alt="Logo MK" class="w-full h-full object-contain" />
             </div>
@@ -93,7 +93,7 @@ const handleLogout = async () => {
         </nav>
 
         <div class="absolute bottom-4 w-full flex justify-center">
-            <button @click="handleLogout" class="nav-link text-gray-500 hover:text-red-600 w-52">
+            <button @click="handleLogout" class="nav-link logout-btn">
                 <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
                 <span class="font-bold">Logout</span>
             </button>
@@ -135,6 +135,10 @@ const handleLogout = async () => {
 
 .app-sidebar {
     transition: transform 0.3s ease;
+}
+
+.logout-btn:hover {
+    color: #dc2626 !important;
 }
 
 @media (max-width: 1024px) {
