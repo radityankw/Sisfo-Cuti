@@ -139,7 +139,7 @@ const handleLogout = async () => {
 
 .logout-btn {
     width: auto; 
-    padding-right: 0.05rem;
+    
 }
 
 .logout-btn:hover {
