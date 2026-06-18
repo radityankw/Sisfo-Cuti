@@ -52,7 +52,7 @@ const handleLogout = async () => {
 
     <div v-if="isOpen" class="sidebar-backdrop" @click="closeSidebar"></div>
 
-    <aside class="app-sidebar w-64 bg-white flex flex-col items-center py-8 px-4 fixed h-full border-r border-gray-100 z-20" :class="{ open: isOpen }">
+    <aside class="app-sidebar w-64 bg-white flex flex-col items-center py-8 px-4 fixed top-0 left-0 bottom-0 border-r border-gray-100 z-20" :class="{ open: isOpen }">
         <div class="mb-10 flex flex-col items-center w-full">
             <div class="w-24 h-24 mb-3 flex items-center justify-center">
                 <img src="/images/logo.png" alt="Logo MK" class="w-full h-full object-contain" />
