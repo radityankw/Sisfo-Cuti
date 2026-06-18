@@ -92,10 +92,9 @@ const handleLogout = async () => {
             </RouterLink>
         </nav>
 
-        <div class="mt-auto w-full flex flex-col items-center pb-4">
+        <div class="mt-auto w-full flex justify-end pb-0">
             <a @click="handleLogout" class="nav-link logout-btn cursor-pointer">
                 <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"></path><polyline points="16 17 21 12 16 7"></polyline><line x1="21" y1="12" x2="9" y2="12"></line></svg>
-                
                 <span>Logout</span>
             </a>
         </div>
@@ -139,7 +138,8 @@ const handleLogout = async () => {
 }
 
 .logout-btn {
-    width: 11rem;
+    width: auto; 
+    padding-right: 0.5rem;
 }
 
 .logout-btn:hover {
