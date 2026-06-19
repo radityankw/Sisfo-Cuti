@@ -115,32 +115,42 @@ const formatDate = (dateString) => {
                     <form @submit.prevent="submitForm" class="grid grid-cols-1 md:grid-cols-2 gap-6">
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">NIK</label>
-                            <input v-model="form.nik" type="text" class="w-full rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900">
+                            <input v-model="form.nik" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
                         </div>
+                        
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Nama</label>
-                            <input v-model="form.nama" type="text" class="w-full rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900">
+                            <input v-model="form.nama" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
                         </div>
+                        
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Tanggal Masuk</label>
-                            <input v-model="form.tglMasuk" type="date" class="w-full rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900">
+                            <input v-model="form.tglMasuk" type="date" class="w-full px-3 py-2 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
                         </div>
+                        
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Departemen</label>
-                            <select v-model="form.departemen" class="w-full rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900">
-                                <option value="HRD">HRD</option><option value="Keuangan">Keuangan</option><option value="Produksi">Produksi</option><option value="Pemasaran">Pemasaran</option>
+                            <select v-model="form.departemen" class="w-full px-3 py-2 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
+                                <option value="HRD">HRD</option>
+                                <option value="Keuangan">Keuangan</option>
+                                <option value="Produksi">Produksi</option>
+                                <option value="Pemasaran">Pemasaran</option>
                             </select>
                         </div>
+                        
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Role</label>
-                            <select v-model="form.role" class="w-full rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900">
-                                <option value="Staff">Staff</option><option value="Manager">Manager</option><option value="HRD">HRD</option>
+                            <select v-model="form.role" class="w-full px-3 py-2 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
+                                <option value="Staff">Staff</option>
+                                <option value="Manager">Manager</option>
+                                <option value="HRD">HRD</option>
                             </select>
                         </div>
+                        
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">Password</label>
                             <div class="relative flex items-center">
-                                <input v-model="form.password" :type="showPassword ? 'text' : 'password'" class="w-full rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 pr-10">
+                                <input v-model="form.password" :type="showPassword ? 'text' : 'password'" class="w-full pl-3 py-2 pr-10 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
                                 
                                 <button type="button" @click="showPassword = !showPassword" class="absolute right-3 text-gray-500 hover:text-blue-900 focus:outline-none">
                                     <svg v-if="!showPassword" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5"><path stroke-linecap="round" stroke-linejoin="round" d="M3.98 8.223A10.477 10.477 0 001.934 12C3.226 16.338 7.244 19.5 12 19.5c.993 0 1.953-.138 2.863-.395M6.228 6.228A10.45 10.45 0 0112 4.5c4.756 0 8.773 3.162 10.065 7.498a10.523 10.523 0 01-4.293 5.774M6.228 6.228L3 3m3.228 3.228l3.65 3.65m7.894 7.894L21 21m-3.228-3.228l-3.65-3.65m0 0a3 3 0 10-4.243-4.243m4.242 4.242L9.88 9.88" /></svg>
@@ -148,9 +158,10 @@ const formatDate = (dateString) => {
                                 </button>
                             </div>
                         </div>
+                        
                         <div class="col-span-2 flex justify-end gap-3 mt-4">
-                            <button type="button" @click="closeModal" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg">Batal</button>
-                            <button type="submit" class="px-6 py-2 bg-blue-900 text-white rounded-lg">Simpan</button>
+                            <button type="button" @click="closeModal" class="px-4 py-2 text-gray-600 bg-gray-100 rounded-lg hover:bg-gray-200 transition-colors">Batal</button>
+                            <button type="submit" class="px-6 py-2 bg-blue-900 text-white rounded-lg hover:bg-blue-800 transition-colors">Simpan</button>
                         </div>
                     </form>
                 </div>
