@@ -19,14 +19,6 @@ use App\Http\Controllers\ProfileController; // Pastikan controller ini direfacto
 // --- PUBLIC ROUTES (Tidak butuh Token) ---
 Route::post('/login', [AuthController::class, 'login']);
 
-// Test DB (Opsional, untuk debug)
-Route::get('/test-db', function () {
-    return response()->json([
-        'users_count' => \App\Models\User::count(),
-        'leaves' => \App\Models\Leave::all(),
-    ]);
-});
-
 // --- PROTECTED ROUTES (Butuh Token Bearer) ---
 Route::middleware('auth:sanctum')->group(function () {
 
@@ -51,7 +43,6 @@ Route::middleware('auth:sanctum')->group(function () {
     });
 
     // 5. PERSETUJUAN (Manager & HRD)
-    // Note: Pastikan PersetujuanController sudah direfactor return JSON
     Route::prefix('persetujuan')->group(function () {
         Route::get('/', [PersetujuanController::class, 'index']);
         Route::patch('/{cutiRequest}', [PersetujuanController::class, 'update']); // Approve/Reject

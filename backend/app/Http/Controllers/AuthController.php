@@ -11,24 +11,20 @@ class AuthController extends Controller
 {
     public function login(Request $request)
     {
-        // 1. Validate Input (NIK & Password)
         $request->validate([
             'nik' => 'required|string',
             'password' => 'required|string',
         ]);
 
-        // 2. Attempt Login
         if (!Auth::attempt($request->only('nik', 'password'))) {
             return response()->json([
                 'message' => 'NIK atau password salah.',
             ], 401);
         }
 
-        // 3. Generate Token
-        $user = User::where('nik', $request->nik)->firstOrFail();
+        $user = Auth::user();
         $token = $user->createToken('auth_token')->plainTextToken;
 
-        // 4. Return Response
         return response()->json([
             'message' => 'Login success',
             'access_token' => $token,
