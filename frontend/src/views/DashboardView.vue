@@ -49,12 +49,16 @@ const cancelLeave = async (leave) => {
     const deadline = new Date(startDate);
     deadline.setHours(8, 0, 0, 0);
 
+    // Format tanggal untuk teks alert/confirm (misal: 15-08-2023)
+    const deadlineStr = `${startDate.getDate().toString().padStart(2, '0')}-${(startDate.getMonth() + 1).toString().padStart(2, '0')}-${startDate.getFullYear()}`;
+
     if (today > deadline) {
         alert("Maaf, batas waktu pembatalan (Pukul 08:00 pada tanggal mulai cuti) sudah terlewati.");
         return;
     }
 
-    if (confirm(`Apakah Anda yakin ingin membatalkan pengajuan cuti ini? Kuota cuti akan dikembalikan.`)) {
+    // --- PERUBAHAN DISINI: Tambahkan teks catatan pada dialog konfirmasi ---
+    if (confirm(`Apakah Anda yakin ingin membatalkan pengajuan cuti ini?\n\nCatatan: Anda dapat membatalkan cuti maksimal pada ${deadlineStr} jam 08.00 WIB.\nKuota cuti akan dikembalikan.`)) {
         try {
             await api.patch(`/pengajuan/${leave.id}/cancel`);
             closeDetailModal();
@@ -80,6 +84,13 @@ const getStatusBadgeClass = (status) => {
 const getStatusText = (status) => {
     const texts = { 'PENDING': 'Menunggu Rekomendasi', 'RECOMMENDED': 'Menunggu Persetujuan', 'APPROVED': 'Disetujui', 'REJECTED': 'Ditolak', 'CANCELLED': 'Dibatalkan' };
     return texts[status] || status;
+};
+
+const getCancelDeadlineText = (tglMulaiRaw) => {
+    if(!tglMulaiRaw) return '';
+    const date = new Date(tglMulaiRaw);
+    const dateStr = `${date.getDate().toString().padStart(2, '0')}-${(date.getMonth() + 1).toString().padStart(2, '0')}-${date.getFullYear()}`;
+    return `Catatan: Anda dapat membatalkan cuti maksimal pada ${dateStr} jam 08.00 WIB`;
 };
 
 const gridColsClass = computed(() => {
@@ -235,6 +246,11 @@ const goToPersetujuan = () => {
                             <div class="flex gap-4"><span class="text-sm text-gray-500">Sisa Cuti:</span><span class="text-sm font-semibold text-black">{{ selectedLeave.sisa_cuti_saat_ini }}</span></div>
                             <div class="flex gap-4"><span class="text-sm text-gray-500">Direkomendasikan oleh:</span><span class="text-sm font-semibold text-black">{{ selectedLeave.approver }}</span></div>
                             <div class="flex gap-4 items-center mt-4"><span class="text-sm text-gray-500">Status:</span><span :class="getStatusBadgeClass(selectedLeave.status)" class="px-4 py-1 rounded-full text-xs font-bold uppercase tracking-wide">{{ getStatusText(selectedLeave.status) }}</span></div>
+                            
+                            <div v-if="!['CANCELLED', 'REJECTED'].includes(selectedLeave.status)" class="mt-4 p-3 bg-blue-50 border border-blue-100 rounded text-xs text-blue-800 italic">
+                                {{ getCancelDeadlineText(selectedLeave.tgl_mulai_raw) }}
+                            </div>
+
                             <div v-if="['CANCELLED', 'REJECTED'].includes(selectedLeave.status)" class="mt-4 p-3 bg-gray-100 rounded text-xs text-gray-600 italic">Pengajuan ini sudah tidak aktif.</div>
                         </div>
                     </div>
