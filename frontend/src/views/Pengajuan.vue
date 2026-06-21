@@ -47,11 +47,35 @@ const isAnnualLeave = computed(() => {
     return selected && selected.namaCuti.toLowerCase().includes('tahunan');
 });
 
-// Watcher logic (Sama seperti sebelumnya)
+// --- PERUBAHAN: Computed property untuk batas minimal tanggal mulai ---
+const minDateMulai = computed(() => {
+    const selectedLeave = leaves.value.find(l => l.id === form.leave_id);
+    const noticeDays = selectedLeave?.minNoticeDay || 0;
+
+    let date = new Date();
+    let daysAdded = 0;
+
+    while (daysAdded < noticeDays) {
+        date.setDate(date.getDate() + 1);
+        if (date.getDay() !== 0 && date.getDay() !== 6) {
+            daysAdded++;
+        }
+    }
+    return date.toISOString().split('T')[0];
+});
+
+// Watcher logic
 watch(() => form.leave_id, (newVal) => {
     const selected = leaves.value.find(l => l.id === newVal);
     if (selected) {
         isAttachmentRequired.value = !selected.namaCuti.toLowerCase().includes('tahunan');
+        
+        // --- PERUBAHAN: Reset tanggal jika tidak memenuhi syarat H-5 ---
+        if (form.tglMulai && form.tglMulai < minDateMulai.value) {
+            form.tglMulai = '';
+            form.tglSelesai = '';
+        }
+
         calculateDuration();
     }
 });
@@ -158,14 +182,14 @@ const submit = async () => {
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                             <div class="flex flex-col gap-2">
                                 <label class="text-lg font-semibold text-black">Tanggal Mulai</label>
-                                <input type="date" v-model="form.tglMulai" required 
+                                <input type="date" v-model="form.tglMulai" required :min="minDateMulai"
                                     class="w-full h-12 rounded-lg border border-gray-400 text-gray-700 px-4 focus:border-blue-900 focus:ring-blue-900">
                                 <div v-if="errors.tglMulai" class="text-red-500 text-sm">{{ errors.tglMulai[0] }}</div>
                             </div>
                             
                             <div class="flex flex-col gap-2">
                                 <label class="text-lg font-semibold text-black">Tanggal Selesai</label>
-                                <input type="date" v-model="form.tglSelesai" required 
+                                <input type="date" v-model="form.tglSelesai" required :min="form.tglMulai || minDateMulai"
                                     class="w-full h-12 rounded-lg border border-gray-400 text-gray-700 px-4 focus:border-blue-900 focus:ring-blue-900">
                                 <div v-if="errors.tglSelesai" class="text-red-500 text-sm">{{ errors.tglSelesai[0] }}</div>
                             </div>
