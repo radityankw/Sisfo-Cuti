@@ -58,9 +58,25 @@ class PengajuanController extends Controller
 
         $validated = $request->validate($rules);
 
-        // Validasi Max Hari
         $start = Carbon::parse($validated['tglMulai']);
         $end = Carbon::parse($validated['tglSelesai']);
+
+        // --- PERUBAHAN: Validasi Min Notice Days (H-5 Hari Kerja) ---
+        $noticeDays = $jenisCuti->minNoticeDay ?? 0; 
+        
+        if ($noticeDays > 0) {
+            $minAllowedDate = Carbon::today()->addWeekdays($noticeDays);
+            
+            if ($start->lessThan($minAllowedDate)) {
+                return response()->json([
+                    'errors' => [
+                        'tglMulai' => ["Pengajuan {$jenisCuti->namaCuti} harus dilakukan minimal {$noticeDays} hari kerja sebelumnya."]
+                    ]
+                ], 422);
+            }
+        }
+
+        // Validasi Max Hari
         $durasi = $start->diffInDays($end) + 1;
 
         if ($jenisCuti->maxHari && $durasi > $jenisCuti->maxHari) {
