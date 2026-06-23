@@ -252,6 +252,12 @@ const goToPersetujuan = () => {
                             </div>
 
                             <div v-if="['CANCELLED', 'REJECTED'].includes(selectedLeave.status)" class="mt-4 p-3 bg-gray-100 rounded text-xs text-gray-600 italic">Pengajuan ini sudah tidak aktif.</div>
+                            <button 
+                                v-if="!['REJECTED', 'CANCELLED'].includes(selectedLeave.status)" 
+                                @click="cancelLeave(selectedLeave)" 
+                                class="mt-6 w-full bg-red-50 border border-red-500 text-red-600 font-bold py-2.5 px-4 rounded-lg hover:bg-red-500 hover:text-white transition-colors duration-200">
+                                Batalkan Pengajuan
+                            </button>
                         </div>
                     </div>
                 </div>
