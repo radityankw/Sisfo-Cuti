@@ -33,7 +33,7 @@ class PengajuanController extends Controller
         $sisaCuti = max(0, $jatahCuti - $cutiTerpakai);
 
         return response()->json([
-            'leaves' => Leave::all(), 
+            'leaves' => Leave::orderBy('namaCuti', 'asc')->get(), 
             'holidays' => Holiday::where('tgl', '>=', Carbon::today())->get(),
             'sisaCuti' => $sisaCuti,
         ]);
