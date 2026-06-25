@@ -116,6 +116,7 @@ const formatDate = (dateString) => {
                         <div class="col-span-1">
                             <label class="block text-sm font-medium text-gray-700 mb-1">NIK</label>
                             <input v-model="form.nik" type="text" class="w-full px-3 py-2 rounded-lg border border-gray-500 focus:ring-blue-900 focus:border-blue-900 outline-none">
+                            <p v-if="errors.nik" class="text-red-500 text-xs mt-1">{{ errors.nik[0] }}</p>
                         </div>
                         
                         <div class="col-span-1">
